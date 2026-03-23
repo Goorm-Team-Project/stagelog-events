@@ -1,12 +1,9 @@
-from django.contrib import admin
 from django.urls import include, path
 
 from events import views as events_views
 from common.utils import health_check
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
     # public
     path('api/events', events_views.event_list, name='event_list'),
     path('api/events/', include('events.urls')),
