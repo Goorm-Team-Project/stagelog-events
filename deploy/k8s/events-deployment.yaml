@@ -17,20 +17,11 @@ spec:
       - name: events-svc
         image: 430118823715.dkr.ecr.ap-northeast-2.amazonaws.com/stagelog-events:latest
         imagePullPolicy: Always
+        envFrom:
+        - secretRef:
+            name: stagelog-events-env
         env:
         - name: DJANGO_SETTINGS_MODULE
           value: config.settings
-        volumeMounts:
-        - name: env-file
-          mountPath: /app/.env
-          subPath: .env
-          readOnly: true
         ports:
         - containerPort: 8000
-      volumes:
-      - name: env-file
-        secret:
-          secretName: stagelog-events-env
-          items:
-          - key: .env
-            path: .env
